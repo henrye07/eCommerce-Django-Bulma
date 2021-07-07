@@ -43,8 +43,8 @@ About Us
                                                     ${{ value.precio }}
                                                 </td>
                                                 <td>
-                                                    <a href="{% url 'sitio:eliminar' value.producto_id %}" class="button is-danger">
-                                                        Eliminar
+                                                    <a href="{% url 'sitio:eliminar' value.producto_id %}" class="button is-danger is-align-items-center is-justify-content-center">
+                                                        <img src="{% static 'icons/delete.svg' %}" alt="" width="30" height="30">
                                                     </a>
                                                 </td>
                                             </tr>

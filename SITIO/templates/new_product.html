@@ -117,20 +117,21 @@ Add New Product
 
                                   
                                   {% if form.title.value %}
-                                    <div class="field is-grouped">
-                                      <div class="control">
-                                        <button type="submit" class="button is-success">Actualizar Producto</button>
+                                    <div class="field columns">
+                                      <div class="control column">
+                                        <button type="submit" class="button is-success">
+                                          <img src="{% static 'icons/edit.svg' %}" alt="" width="30" height="30"> Actualizar
+                                        </button>
                                       </div>
                                     </div>
                                   </form>
                                   <form action="{% url 'sitio:productDelete' product.id %}" method="POST">
                                     {% csrf_token %}
-                                    <div class="field is-grouped">
-                                      <div class="control">
-                                        <button type="submit" class="button is-danger">Eliminar Producto</button>
-                                      </div>
-                                    </div>
+                                        <button type="submit" class="button is-danger">
+                                          <img src="{% static 'icons/delete.svg' %}" alt="" width="30" height="30"> Eliminar
+                                        </button>
                                   </form>
+                                  
                                   {% else %}
                                     <div class="field is-grouped">
                                       <div class="control">

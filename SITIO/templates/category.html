@@ -50,6 +50,11 @@ Categories
                                 </div>
                                 {% if user.is_authenticated %}
                                     <footer class="card-footer box is-justify-content-center">
+                                        {% if user.is_staff %}
+                                            <a href="{% url 'sitio:productEdit' product.id %}" class="button is-success">
+                                                Ver Producto
+                                            </a>
+                                        {% endif %}
                                         <a href="{% url 'sitio:agregar' product.id %}" class=" button is-success">
                                             Agregar al Carro
                                         </a>
@@ -97,6 +102,11 @@ Categories
                                 </div>
                                 {% if user.is_authenticated %}
                                     <footer class="card-footer box is-justify-content-center">
+                                        {% if user.is_staff %}
+                                            <a href="{% url 'sitio:productEdit' product.id %}" class="button is-success">
+                                                Ver Producto
+                                            </a>
+                                        {% endif %}
                                         <a href="{% url 'sitio:agregar' product.id %}" class=" button is-success">
                                             Agregar al Carro
                                         </a>

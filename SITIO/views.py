@@ -85,19 +85,22 @@ def register(request):
     context['Categorias']=categories
     return render(request, 'register.html',context)
 
-def product(request,id):
+def product(request,id=None):
     context={}
-    product=models.Productos.objects.get(id=id)
-    all_products=models.Productos.objects.all()
     categories=models.Categorias.objects.all()
-    context['product']=product
-    context['all']=all_products
+    if id==None:
+        all_products=models.Productos.objects.all()
+        context['post']=all_products
+    else:
+        product=models.Productos.objects.get(id=id)
+        context['product']=product
     context['Categorias']=categories
     return render(request, 'product.html',context)
 
 def product_edit(request,id):
     context={}
     product=models.Productos.objects.get(id=id)
+    categories=models.Categorias.objects.all()
     if request.method=='GET':
         form=ProductsForm(instance=product)
     else:
@@ -108,11 +111,13 @@ def product_edit(request,id):
         return redirect('sitio:index')
     context['form']=form
     context['product']=product
+    context['Categorias']=categories
     return render(request, 'new_product.html',context)
 
 def product_delete(request,id):
     form=models.Productos.objects.get(id=id)
     if request.method=='POST':
+        messages.error(request,f"Se elimino el producto: {form.title}")
         form.delete()
         return redirect("/")
 

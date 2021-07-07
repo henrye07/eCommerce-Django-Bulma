@@ -21,12 +21,12 @@ Home
     <div class="block mt-4">
 
         {% for message in messages %}
-        <article class="message is-success">
-            <div class="message-header">
-                <p>{{ message }}</p>
-                <button class="delete" aria-label="delete"></button>
-            </div>
-        </article>
+            <article class="message is-success">
+                <div class="message-header">
+                    <p>{{ message }}</p>
+                    <button class="delete" aria-label="delete"></button>
+                </div>
+            </article>
         {% endfor %}
 
     </div>
@@ -59,7 +59,12 @@ Home
                             </div>
                         </div> 
                         <footer class="card-footer box is-justify-content-center">
-                            <a href="{% url 'sitio:producto' product.id %}" class=" button is-success">Ver Producto</a>
+                            {% if user.is_staff %}
+                                <a href="{% url 'sitio:productEdit' product.id %}" class="button is-success">
+                            {% else %}
+                                <a href="{% url 'sitio:producto' product.id %}" class=" button is-success">
+                            {% endif %}
+                                Ver Producto</a>
                             {% if user.is_authenticated %}
                                 <a href="{% url 'sitio:agregar' product.id %}" class=" button is-success">
                                     Agregar al Carro
@@ -78,8 +83,8 @@ Home
             <table class="table is-striped">
                 <thead class="notification is-info">
                     <tr>
-                        <th>ID</th>
-                        <th>TITLE</th>
+                        
+                        <th colspan="2">PRODUCTOS</th>
                         <th>CATEGORIA</th>
                         <th>PRECIO</th>
                     </tr>
@@ -87,13 +92,17 @@ Home
                 <tbody>
                     {% for product in first %}
                     <tr>
-                        <td class="">{{ product.id }} </td>
+                        <td class="">
+                            <figure class="image is-64x64">
+                                <img src="{{ product.image.url }}" alt="Placeholder image">
+                            </figure> 
+                        </td>
                         <td class="">
                             {% if user.is_staff %}
-                            <a href="{% url 'sitio:productEdit' product.id %}">
-                                {% else %}
+                                <a href="{% url 'sitio:productEdit' product.id %}">
+                            {% else %}
                                 <a href="{% url 'sitio:producto' product.id %}">
-                                    {% endif %}
+                            {% endif %}
                                     {{ product.title }}
                                 </a>
                         </td>
