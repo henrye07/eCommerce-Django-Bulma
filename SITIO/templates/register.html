@@ -14,11 +14,11 @@ Register
 {% block content %}
 <div id="register" class=" mx-6">
     <div class="block">
-        <div class="tile is-ancestor ">
-            <div class="tile is-parent ">
+        <div class="tile is-ancestor is-justify-content-center is-align-items-center">
+            <div class="tile is-parent is-6 is-vertical">
                 <article class="tile is-child box">
                     <header class="card-header">
-                        <p class="card-header-title is-uppercase is-justify-content-center">
+                        <p class="card-header-title is-uppercase is-justify-content-center notification is-link">
                             Registrarse
                         </p>
                     </header>
@@ -60,9 +60,9 @@ Register
                                         <small id="hint_id_password2" class="help is-dark">Para verificar, introduzca la misma contraseña anterior.</small> 
                                     </div> 
                                 </div>
-                                <div class="field">
+                                <div class="field ">
                                     <button type="submit" class="button is-success">Registrarse</button>
-                                    <a href="{% url 'login' %}">Ya tengo una cuenta</a>
+                                    <a href="{% url 'login' %}" class="pt-3">Ya tengo una cuenta</a>
                                 </div>
                             </form>
                         </div>

@@ -27,34 +27,6 @@ const d = document,
       
       });
 
-const $DrowDownBtn = d.getElementById("dropdownbtn"),
-    $DrowDownCtn = d.getElementsByClassName("dropdown");
-
-    $DrowDownBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        $DrowDownCtn.classList.add("is-active")
-})
-
-
-const $Tabs = d.querySelectorAll(".tabs li");
-const $TabsContent = d.querySelectorAll("#tab-content > div")
-
-$Tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-        $Tabs.forEach(item => item.classList.remove("is-active"))
-        tab.classList.toggle("is-active")
-        const target = tab.dataset.target;
-        $TabsContent.forEach(box => {
-            if (box.getAttribute('id') === target) {
-                box.classList.remove("is-hidden")
-            } else {
-                box.classList.add("is-hidden")
-            }
-                
-        })
-    })
-})
-
 d.addEventListener('DOMContentLoaded', () => {
     (d.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
       const $notification = $delete.parentNode;

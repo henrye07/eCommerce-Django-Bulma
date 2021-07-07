@@ -34,7 +34,7 @@
                             </a>
                         </li>
                         <li>
-                            <a id="logout" href="{% url 'logout' %}" class="button is-light">
+                            <a id="logout" href="{% url 'logout' %}" class="button is-danger is-outlined">
                                 <strong>Log out</strong><img src="{% static 'icons/logout.svg' %}" alt="log out img"
                                     width="25px" height="25px" style="padding-left: 0.2rem;" />
                             </a>
@@ -47,7 +47,7 @@
                         </a>
                     </li>
                     <li>
-                        <a id="login" href="{% url 'login' %}" class="button is-light">
+                        <a id="login" href="{% url 'login' %}" class="button is-link is-outlined">
                             <img src="{% static 'icons/login.svg' %}" alt="log in img" width="25px" height="25px"
                                 style="padding-right: 0.2rem;" /><strong>Log in</strong>
                         </a>
@@ -101,14 +101,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="navbar-item">
-                        <form action="{% url 'sitio:buscar' %}" method="POST" class="field has-addons ">
+                </div>
+                <div class="navbar-end">
+                    <div class=" navbar-item">
+                        <form action="{% url 'sitio:buscar' %}" method="POST" class="field has-addons">
                             {% csrf_token %}
-                            <div class="control ml-5">
-                                <input class="input" type="text" placeholder="Buscar..." name="buscar">
+                            <div class="control ">
+                                <input class="input is-dark is-rounded" type="text" placeholder="Buscar..." name="buscar">
                             </div>
                             <div class="control">
-                                <button type="submit" class="button is-info">
+                                <button type="submit" class="button is-dark">
                                     Buscar
                                 </button>
                             </div>
