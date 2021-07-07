@@ -115,13 +115,32 @@ Add New Product
                                     </div>
                                   </div>
 
-                                  <div class="field is-grouped">
-                                    <div class="control">
-                                      <button type="submit" class="button is-link">Crear Producto</button>
+                                  
+                                  {% if form.title.value %}
+                                    <div class="field is-grouped">
+                                      <div class="control">
+                                        <button type="submit" class="button is-success">Actualizar Producto</button>
+                                      </div>
                                     </div>
-                                  </div>
+                                  </form>
+                                  <form action="{% url 'sitio:productDelete' product.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="field is-grouped">
+                                      <div class="control">
+                                        <button type="submit" class="button is-danger">Eliminar Producto</button>
+                                      </div>
+                                    </div>
+                                  </form>
+                                  {% else %}
+                                    <div class="field is-grouped">
+                                      <div class="control">
+                                        <button type="submit" class="button is-link">Crear Producto</button>
+                                      </div>
+                                    </div>
+                                  </form>
+                                  {% endif %}
                                 
-                            </form>
+                            
                         </div>
                     </div>
                 </article>

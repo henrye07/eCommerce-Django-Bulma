@@ -98,7 +98,6 @@ def product(request,id):
 def product_edit(request,id):
     context={}
     product=models.Productos.objects.get(id=id)
-    print(product)
     if request.method=='GET':
         form=ProductsForm(instance=product)
     else:
@@ -108,8 +107,14 @@ def product_edit(request,id):
             messages.success(request,f"Se Actualizo con Exito el Producto de nombre:{product.title} - id:{product.id}")
         return redirect('sitio:index')
     context['form']=form
+    context['product']=product
     return render(request, 'new_product.html',context)
 
+def product_delete(request,id):
+    form=models.Productos.objects.get(id=id)
+    if request.method=='POST':
+        form.delete()
+        return redirect("/")
 
 def agregar_producto(request,id):
    
