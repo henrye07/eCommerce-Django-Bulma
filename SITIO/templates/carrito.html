@@ -1,0 +1,80 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}
+About Us
+{% endblock title %}
+
+
+{% block content %}
+<div id="about" class=" mx-6">
+    <div class="block">
+        <div class="tile is-ancestor block is-dark is-outlined">
+            <div class="tile is-parent is-justify-content-center is-align-content-center">
+                
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title is-size-3 has-text-weight-bold">
+                        Bienvenido a tu Carrito <span class="ml-3 is-uppercase">{{ user.username }}</span>
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <div class="table-container">
+                                <table class="table is-striped">
+                                    <thead class="notification is-info">
+                                        <tr>
+                                            <th>NOMBRE DEL PRODUCTO</th>
+                                            <th>CANTIDAD</th>
+                                            <th>PRECIO</th>
+                                            <th>ELIMINAR PRODUCTO</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if request.session.carro.items %}
+                                        
+                                            {% for key,value in request.session.carro.items %}
+                                            <tr>
+                                                <td class="">{{ value.nombre }}</td>
+                                                <td class="">{{ value.cantidad }}</td>
+                                                <td class=""> 
+                                                    <a href="{% url 'sitio:agregar' value.producto_id %}" class="button is-success">+</a>
+                                                    <a href="{% url 'sitio:restar' value.producto_id %}" class="button is-success">-</a><br/>
+                                                    ${{ value.precio }}
+                                                </td>
+                                                <td>
+                                                    <a href="{% url 'sitio:eliminar' value.producto_id %}" class="button is-danger">
+                                                        Eliminar
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="4" class="has-text-centered">
+                                                    <div class="notification is-danger has-text-weight-bold is-size-3">Sin Productos </div>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                    
+                                </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="card-footer box is-fullwidth">
+                        <a href="{% url 'sitio:limpiar'%}" class="button is-danger">
+                            Vaciar Carrito
+                        </a>
+                        <a href="{% url 'sitio:index'%}" class="button is-success">
+                            Finalizar Compra
+                        </a>
+                    </footer>
+                </div>
+                
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

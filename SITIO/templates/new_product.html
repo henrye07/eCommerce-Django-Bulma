@@ -1,0 +1,132 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+
+{% block title %}
+Add New Product
+{% endblock title %}
+
+
+{% block Links %}
+<script src="https://cdn.tiny.cloud/1/wt0bfhreznccz3jzvte3xrd7j4uf89pn0wvlvdwy5hxgdfm7/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+  <script>
+    tinymce.init({
+      selector: '#{{ form.description.id_for_label }}',
+      width: 600,
+      height: 300,
+      plugins: [
+      'advlist autolink link lists charmap print preview hr anchor pagebreak',
+      'searchreplace wordcount visualblocks code fullscreen insertdatetime media nonbreaking',
+      'emoticons template paste help'
+      ],
+      toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | ' +
+      'bullist numlist outdent indent | link | print preview media fullpage | ' +
+      'forecolor backcolor emoticons | help',
+      menu: {
+        favs: {title: 'My Favorites', items: 'code visualaid | searchreplace | emoticons'}
+      },
+      menubar: 'favs file edit view insert format tools help',
+      
+   });
+  </script>
+{% endblock Links %}
+  
+
+{% block content %}
+<div div id="nuevoProducto" class=" mx-6">
+    <div class="mt-5 block">
+        <div class="tile is-ancestor ">
+            <div class="tile is-parent ">
+                <article class="tile is-child box">
+                    
+                    {% if form.errors %}
+                        <div class="notification is-danger">
+                            <button class="delete"></button>
+                            <strong>{{ form.errors }}</strong>
+                        </div>
+                    {% endif %}
+                        
+                    <header class="card-header">
+                        <p class="card-header-title is-uppercase is-justify-content-center">
+                            NUEVO PRODUCTO
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="field">
+                                    <label class="label" for="{{ form.title.id_for_label }}">Titulo</label>
+                                    <div class="control">
+                                      
+                                      {% if form.title.value %}
+                                        <input class="input" value="{{form.title.value}}" type="text" placeholder="Ingrese el Nombre/Titulo del producto" name="{{ form.title.name }}" id="{{ form.title.id_for_label}}">
+                                      {% else %}
+                                        <input class="input"  type="text" placeholder="Ingrese el Nombre/Titulo del producto" name="{{ form.title.name }}" id="{{ form.title.id_for_label}}">
+                                      {% endif %}
+                                        
+                                    </div>
+                                  </div>
+
+                                  <div class="file">
+                                    <label class="file-label" for="{{ form.image.id_for_label }}">
+                                      <input class="file-input" value="{{form.image.value}}" type="file" name="{{ form.image.name }}" id="{{ form.image.id_for_label }}"/>
+                                      <span class="file-cta">
+                                        <span class="file-icon">
+                                            <img src="{% static 'icons/upload.svg' %}" alt="">
+                                        </span>
+                                        <span class="file-label">
+                                          Imagen del Producto
+                                        </span>
+                                      </span>
+                                    </label>
+                                  </div>
+
+                                  <div class="field">
+                                    <label class="label" for="{{ form.categoria_pertenece.id_for_label }}">Categoria</label>
+                                    <div class="control">
+                                      <div class="select">
+                                        {{ form.categoria_pertenece }}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  
+                                  <div class="field">
+                                    <label class="label" for="{{ form.description.id_for_label }}">Descripción del Producto</label>
+                                    <div class="control">
+                                      {% if form.description.value  %} 
+                                          {{form.description}}
+                                      {% else %}
+                        
+                                        <textarea class="textarea " value="{{ form.description.value }}" placeholder="Describe el producto para que los clientes, puedan encontrar y conocer mejor el producto" name="{{ form.description.name }}" id="{{ form.description.id_for_label }}"></textarea>
+                                      {% endif %}
+                                    </div>
+                                  </div>
+
+                                  <div class="field ">
+                                    <label class="label" for="{{ form.price.id_for_label }}">Precio</label>
+                                    <div class="control has-icons-left has-icons-right">
+                                      <input class="input" type="number" value="{{ form.price.value|escape }}" step="any" placeholder="00000.00" name="{{ form.price.name }}" id="{{ form.price.id_for_label }}">
+                                      <span class="icon is-small is-left">
+                                          <span class="file-icon">
+                                            <img src="{% static 'icons/price.svg' %}" alt="">
+                                          </span>
+                                      </span>
+                                    </div>
+                                  </div>
+
+                                  <div class="field is-grouped">
+                                    <div class="control">
+                                      <button type="submit" class="button is-link">Crear Producto</button>
+                                    </div>
+                                  </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

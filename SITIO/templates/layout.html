@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        {% block title %}
+
+        {% endblock title %}
+    </title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
+    {% block Links %} {% endblock Links %}
+    {% load static %}
+
+</head>
+
+<body>
+    <header  class="m-1" >
+        <div class="pt-2 ml-4" style="position:absolute; top:0px; left:0px">
+            <img src="{% static 'icons/logo.png' %}" alt="categories img" width="35px" height="35px"/>
+        </div>
+        <div class="is-size-1-desktop is-size-1-tablet is-size-1-touch is-hidden-mobile is-uppercase  has-text-weight-bold has-text-black" style="position:absolute; top:-5px; left:5%">
+            JAGUARETE KAA S.A
+        </div>
+        <nav class="breadcrumb has-dot-separator is-right mr-2 pt-2" aria-label="breadcrumbs">
+            <ul>
+                {% if user.is_authenticated %} 
+                        <li>
+                            <a id="carrito" href="{% url 'sitio:carrito' %}" class="button is-primary">
+                                <img src="{% static 'icons/carrito.svg' %}" alt="shops img" width="25px" height="25px"
+                                    style="padding-right: 0.2rem;" /><strong>Carrito</strong>
+                            </a>
+                        </li>
+                        <li>
+                            <a id="logout" href="{% url 'logout' %}" class="button is-light">
+                                <strong>Log out</strong><img src="{% static 'icons/logout.svg' %}" alt="log out img"
+                                    width="25px" height="25px" style="padding-left: 0.2rem;" />
+                            </a>
+                        </li>
+                {% else %}
+                    <li>
+                        <a id="register" class="button is-primary" href="{% url 'sitio:register' %}">
+                            <img src="{% static 'icons/register.svg' %}" alt="add user img" width="25px" height="25px"
+                                style="padding-right: 0.2rem;" /><strong>Registrarse</strong>
+                        </a>
+                    </li>
+                    <li>
+                        <a id="login" href="{% url 'login' %}" class="button is-light">
+                            <img src="{% static 'icons/login.svg' %}" alt="log in img" width="25px" height="25px"
+                                style="padding-right: 0.2rem;" /><strong>Log in</strong>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        <nav class="navbar is-info" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a role="button" id="burguer" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                    data-target="encabezado">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+    
+            <div id="encabezado" class="navbar-menu">
+                <div class="navbar-start">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="navbar-item has-text-black " href="{% url 'sitio:index' %}"><img
+                                    src="{% static 'icons/home.svg' %}" alt="home img" width="22px" height="22px"
+                                    style="padding-right: 0.2rem;" /> HOME </a>
+    
+                            <a class="navbar-item has-text-black " href="{% url 'sitio:acerca' %}"><img
+                                    src="{% static 'icons/about.svg' %}" alt="about img" width="22px" height="22px"
+                                    style="padding-right: 0.2rem;" /> ACERCA DE </a>
+                            <a class="navbar-item has-text-black " href="{% url 'sitio:contacto' %}"><img
+                                    src="{% static 'icons/contact.svg' %}" alt="contact img" width="22px" height="22px"
+                                    style="padding-right: 0.2rem;" /> CONTACTO </a>
+                            {% if user.is_staff %}
+                                <a class="navbar-item has-text-black " href="{% url 'sitio:nuevoProducto' %}"><img
+                                        src="{% static 'icons/new.svg' %}" alt="newProduct img" width="22px" height="22px"
+                                        style="padding-right: 0.2rem;" /> NUEVO PRODUCTO </a>
+                                <a class="navbar-item has-text-black " href="{% url 'sitio:producto' 1 %}"><img
+                                        src="{% static 'icons/new.svg' %}" alt="newProduct img" width="22px" height="22px"
+                                        style="padding-right: 0.2rem;" /> PRODUCTOS </a>
+                            {% endif %}
+                            <div class="navbar-item has-dropdown is-hoverable">
+                                <a class="navbar-link ">
+                                    <span class="has-text-black"><img src="{% static 'icons/categories.svg' %}" alt="categories img"
+                                            width="22px" height="22px"
+                                            style="padding-right: 0.2rem; " />CATEGORIAS</span>
+                                </a>
+                                <div class="navbar-dropdown">
+                                    {% for categoria in Categorias %}
+                                        <a class="navbar-item" href="{% url 'sitio:categorias' categoria.id %}">{{categoria.categoria}}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="navbar-item">
+                        <form action="{% url 'sitio:buscar' %}" method="POST" class="field has-addons ">
+                            {% csrf_token %}
+                            <div class="control ml-5">
+                                <input class="input" type="text" placeholder="Buscar..." name="buscar">
+                            </div>
+                            <div class="control">
+                                <button type="submit" class="button is-info">
+                                    Buscar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="px-2" id="tab-content">
+            {% block content %}
+
+            {% endblock content %}
+        </div>
+    </main>
+    <footer class="footer my-5 py-5">
+        <div class="content has-text-centered">
+            <p>Jaguarete KAA S.A Copyright 2021, Todos los derechos reservados.</p>
+            <p>Deseñado Por Henry Sebastian Eraso Lasso</p>
+        </div>
+    </footer>
+    <script src="{% static 'js/index.js' %}" type="module"></script>`
+
+    {% block scripts %}
+
+    {% endblock scripts %}
+
+</body>
+
+</html>

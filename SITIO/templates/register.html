@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}
+Register
+{% endblock title %}
+
+
+{% block Links %}
+
+{% endblock Links %}
+    
+
+{% block content %}
+<div id="register" class=" mx-6">
+    <div class="block">
+        <div class="tile is-ancestor ">
+            <div class="tile is-parent ">
+                <article class="tile is-child box">
+                    <header class="card-header">
+                        <p class="card-header-title is-uppercase is-justify-content-center">
+                            Registrarse
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <form method="post">
+                                {% csrf_token %}
+                                <div  class="field">
+                                    <label id="{{ form.username.id_for_label }}" class="label">Nombre de usuario<span class="has-text-danger">*</span> </label> 
+                                    <div class=""> 
+                                        <input type="text" name="{{ form.username.name }}" maxlength="150" autofocus class="input" required id="{{ form.password.id_for_label }}"> 
+                                        <small id="hint_id_username" class="help has-text-danger"">Requerido. 150 carácteres como máximo. Únicamente letras, dígitos y @/./+/-/_ </small> 
+                                    </div> 
+                                </div> 
+                                <div  class="field"> 
+                                    <label for="{{ form.email.id_for_label }}" class="label">Email<span class="has-text-danger">*</span> </label> 
+                                    <div class=""> 
+                                        <input type="email" name="{{ form.email.name }}" class="input" required id="{{ form.email.id_for_label }}"> 
+                                    </div> 
+                                </div> 
+                                <div class="field"> 
+                                    <label for="{{ form.password1.id_for_password1 }}" class="label">Contraseña<span class="has-text-danger">*</span> </label> 
+                                    <div class=""> 
+                                        <input type="password" name="{{ form.password1.name}}" autocomplete="new-password" class="input" required id="id_password1"> 
+                                        <small id="hint_id_password1" class="help is-dark">
+                                            <ul>
+                                                <li>Su contraseña no puede asemejarse tanto a su otra información personal.</li>
+                                                <li>Su contraseña debe contener al menos 8 caracteres.</li>
+                                                <li>Su contraseña no puede ser una clave utilizada comúnmente.</li>
+                                                <li>Su contraseña no puede ser completamente numérica.</li>
+                                            </ul>
+                                        </small> 
+                                    </div> 
+                                </div> 
+                                <div class="field"> 
+                                    <label for="{{ form.password2.id_for_password2 }}" class=" label">Contraseña (confirmación)<span class="has-text-danger">*</span> </label> 
+                                    <div class=""> 
+                                        <input type="password" name="{{ form.password2.name }}" autocomplete="new-password" class="input" required id="{{ form.password2.id_for_password2 }}">
+                                        <small id="hint_id_password2" class="help is-dark">Para verificar, introduzca la misma contraseña anterior.</small> 
+                                    </div> 
+                                </div>
+                                <div class="field">
+                                    <button type="submit" class="button is-success">Registrarse</button>
+                                    <a href="{% url 'login' %}">Ya tengo una cuenta</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

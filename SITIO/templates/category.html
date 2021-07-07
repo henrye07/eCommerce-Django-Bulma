@@ -1,0 +1,101 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}
+Categories
+{% endblock title %}
+
+
+{% block content %}
+<div id="categorias" class=" mx-6">
+    <div class="block ">
+        <div class="tile is-ancestor is-justify-content-center is-align-items-center mt-4">
+            <div class="tile is-vertical is-6">
+                {% if products %}
+                    <header class="card-header">
+                        <p class="card-header-title is-justify-content-center notification is-link">
+                            PRODUCTOS DE LA CATEGORIA: {{Cate.categoria|upper}}
+                        </p>
+                    </header>
+                    {% for product in products %}
+                        <div class="tile is-parent">
+                            <article class="tile is-child box">
+                                <header class="card-header">
+                                    <p class="card-header-title is-uppercase is-justify-content-center">
+                                        {{ product.title }}
+                                    </p>
+                                </header>
+                                <div class="card-image">
+                                    <figure class="image is-2by1">
+                                        <img src="{{ product.image.url }}" alt="Placeholder image">
+                                    </figure>
+                                </div>
+                                <div class="card-content">
+                                    <div class="content">
+                                        {{ product.description|safe }}
+                                        <br>
+                                        <div class="is-flex is-align-items-center is-justify-content-center">
+                                            <span class="is-size-3 has-text-weight-bold">Precio: <span class="has-text-success">$ {{ product.price }}</span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if user.is_authenticated %}
+                                    <footer class="card-footer box is-justify-content-center">
+                                        <a href="{% url 'sitio:agregar' product.id %}" class=" button is-success">
+                                            Agregar al Carro
+                                        </a>
+                                    </footer>
+                                {% endif %}
+                            </article>
+                        </div>
+                    {% endfor %}
+                {% elif posts %}
+                    <header class="card-header">
+                        <p class="card-header-title is-justify-content-center notification is-warning">
+                            Los Productos encontrados con la palabra "{{ buscando|upper }}" son:
+                        </p>
+                    </header>
+                    {% for product in posts %}
+                        <div class="tile is-parent">
+                            <article class="tile is-child box">
+                                <header class="card-header">
+                                    <p class="card-header-title is-uppercase is-justify-content-center">
+                                        {{ product.title }} <span class="ml-3 tag is-danger">{{ product.categoria_pertenece }}</span>
+                                    </p>
+                                </header>
+                                <div class="card-image">
+                                    <figure class="image is-2by1">
+                                        <img src="{{ product.image.url }}" alt="Placeholder image">
+                                    </figure>
+                                </div>
+                                <div class="card-content">
+                                    <div class="content">
+                                        {{ product.description|safe }}
+                                        <br>
+                                        <div class="is-flex is-align-items-center is-justify-content-center">
+                                            <span class="is-size-3 has-text-weight-bold">Precio: <span class="has-text-success">$ {{ product.price }}</span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if user.is_authenticated %}
+                                    <footer class="card-footer box is-justify-content-center is-light">
+                                        <a href="{% url 'sitio:agregar' product.id %}" class=" button is-success">
+                                            Agregar al Carro
+                                        </a>
+                                    </footer>
+                                {% endif %}
+                            </article>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <header class="card-header">
+                        <p class="card-header-title is-uppercase is-justify-content-center notification is-danger">
+                            En el momento no se encuentra disponible este producto
+                        </p>
+                    </header>    
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

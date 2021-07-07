@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}
+Contact
+{% endblock title %}
+
+
+{% block content %}
+<div id="contacto" class=" mx-6 my-5">
+    <div class="block">
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title is-size-3">
+            Contactanos
+          </p>
+        </header>
+        <div class="card-content">
+          <div class="content">
+            <div class="field">
+                <label class="label">Nombre</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="">
+                </div>
+              </div>
+              
+              <div class="field">
+                <label class="label">Telefono Celular</label>
+                <div class="control">
+                  <input class="input" type="number" placeholder="">
+                </div>
+              </div>
+              
+              <div class="field">
+                <label class="label">Mensaje</label>
+                <div class="control">
+                  <textarea class="textarea" placeholder="Escribe aqui tu mensaje y pronto nos contactaremos con usted"></textarea>
+                </div>
+              </div>
+          </div>
+        </div>
+        <footer class="card-footer">
+            
+              <a class="card-footer-item button is-link">Enviar</button>
+            
+           
+              <a class="card-footer-item button is-light" href="{% url 'sitio:index' %}">Cancelar</a>
+            
+        </footer>
+      </div>
+
+          
+    </div>
+</div>
+{% endblock content %}

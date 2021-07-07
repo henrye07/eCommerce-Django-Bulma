@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+
+{% block title %}
+LogIn
+{% endblock title %}
+
+{% block Links %}
+
+{% endblock Links %}
+
+
+{% block content %}
+<div id="LogIn" class=" mx-6">
+    <div class="block">
+        <div class="tile is-ancestor ">
+            <div class="tile is-parent ">
+                <article class="tile is-child box">
+                    <header class="card-header">
+                        <p class="card-header-title is-uppercase is-justify-content-center">
+                            Log In
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="field">
+                                    <label for="{{ form.username.id_for_label }}" class=" requiredField">
+                                        Nombre de usuario
+                                        <span class="asteriskField">*</span> 
+                                    </label>
+                                    <p class="control has-icons-right">
+                                      <input type="text" name="{{ form.username.name }}" autofocus autocapitalize="none" 
+                                      autocomplete="username" maxlength="150" class="input" 
+                                      required id="{{ form.username.id_for_label }}">
+                                    </p>
+                                  </div>
+                                  <div class="field">
+                                    <label for="{{ form.password.id_for_label }}" class=" requiredField">
+                                        Contrasena
+                                        <span class="asteriskField">*</span> 
+                                    </label>
+                                    <p class="control">
+                                      <input class="input" type="password" placeholder="Contasena" name="{{ form.password.name }}" 
+                                      autocomplete="current-password" class="input" required id="{{ form.password.id_for_label }}">
+                                    </p>
+                                  </div>
+                                  <div class="field">
+                                    <button type="submit" class="button is-success">LogIn</button>
+                                    <p>No tienes una cuenta? Crea una <a href="{% url 'sitio:register' %}">Aqui!</a></p>
+                                  </div>
+                            </form>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

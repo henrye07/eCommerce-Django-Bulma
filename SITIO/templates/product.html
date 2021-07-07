@@ -1,0 +1,85 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+
+{% block Links %}
+
+{% endblock Links %}
+
+{% block title %}
+Product
+{% endblock title %}
+    
+
+{% block content %}
+<div id="product" class=" mx-6">
+    
+    {% if user.is_staff %}
+        <div class="tile is-ancestor block is-dark is-outlined">
+            <div class="tile is-parent is-justify-content-center is-align-content-center table-container">
+                    <table class="table is-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>TITLE</th>
+                                <th>CATEGORIA</th>
+                                <th>PRECIO</th>
+                                <th>EDITAR</th>
+                            </tr>
+                        </th>
+                        <tbody>
+                            {% for product in all %}
+                            <tr>
+                                <td class="">{{ product.id }} </td>
+                                <td class=""> {{ product.title }} </td>
+                                <td class=""> {{ product.categoria_pertenece }} </td>
+                                <td class=""> ${{ product.price }}</td>
+                                <td><button><a href="{% url 'sitio:productEdit' product.id %}">Editar</a></button></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    {% else %}
+        <div class="block">
+            <div class="tile is-ancestor ">
+                <div class="tile is-parent ">
+                    <article class="tile is-child box">
+                        <header class="card-header">
+                            <p class="card-header-title is-uppercase is-justify-content-center">
+                                {{ product.title }} <span class="ml-2 tag is-warning">{{ product.categoria_pertenece }}</span>
+                            </p>
+                        </header>
+                        <div class="card-image">
+                            <figure class="image is-2by1">
+                                <img src="{{ product.image.url }}" alt="Placeholder image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="">
+                                <span class="is-size-3 has-text-weight-bold">Descripcion del Producto:</span>
+                            </div>
+                            <div class="content">
+                                {{ product.description|safe }}
+                                <br>
+                                <div class="is-flex is-align-items-center is-justify-content-center">
+                                    <span class="is-size-3 has-text-weight-bold">Precio: <span class="has-text-success">$ {{ product.price }}</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        {% if user.is_authenticated %}
+                            <footer class="card-footer box is-justify-content-center">
+                                <a href="{% url 'sitio:agregar' product.id %}" class=" button is-success">
+                                    Agregar al Carro
+                                </a>
+                            </footer>
+                        {% endif %}
+                    </article>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+        
+</div>
+{% endblock content %}
